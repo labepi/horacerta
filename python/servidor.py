@@ -19,6 +19,9 @@ s.bind(("", PORTANUMERO))
 # habilita a escuta de conexoes
 s.listen(1)
 
+print("Servidor escutando conexoes TCP na porta: %d\n" % PORTANUMERO)
+
+
 while True:
     # espera por uma conexao
     (clientsocket, clientaddress) = s.accept()
