@@ -7,7 +7,9 @@
 #include <arpa/inet.h>
 #include <time.h>
 
-#define PORTANUMERO 2343
+#define PORTANUMERO 2102
+
+#define MAXIMOMSG 500
 
 int main(int argc, char* argv[])
 {
@@ -56,16 +58,27 @@ int main(int argc, char* argv[])
     // habilita a escuta de conexoes
     listen(meusocket, 1);
     
-    printf("Servidor escutando conexoes TCP na porta: %d\n",PORTANUMERO);
+    printf("Servidor escutando conexoes TCP na porta: %d\n\n",PORTANUMERO);
 
     while(1)
     {
         //espera por uma conexao
         socketconexao = accept(meusocket, (struct sockaddr *)&endereco_cliente, &sockettamanho);
-        printf("Uma conexao do endereco %s foi estabelecida - informando a hora certa\n", inet_ntoa(endereco_cliente.sin_addr));
+        
+        printf("Uma conexao do endereco %s foi estabelecida.\n", inet_ntoa(endereco_cliente.sin_addr));
+        
+        // recebendo a requisicao
+        recv(socketconexao, buffer, MAXIMOMSG, 0);
+
+        // obtendo e formatando a hora
         ticks = time(NULL);
         snprintf(buffer, sizeof(buffer), "%.24s ", ctime(&ticks));
+
+        printf("Enviando a hora atual: %s\n\n", buffer);
+
+        // enviando a hora
         send(socketconexao, buffer, strlen(buffer), 0);
+
         close(socketconexao);
     }
 

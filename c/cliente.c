@@ -25,13 +25,19 @@ int main(int argc, char *argv[])
     destinatario.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     // porta do servidor
-    destinatario.sin_port = htons(2343);
+    destinatario.sin_port = htons(2102);
 
     // zerando o resto da estrutura
     memset(&(destinatario.sin_zero), '\0', sizeof(destinatario.sin_zero));
 
+    // conectando ao servidor
     connect(meusocket, (struct sockaddr *)&destinatario, sizeof(struct sockaddr));
 
+    // enviando a requisicao
+    strcpy(buffer, "horaAtual");
+    send(meusocket, buffer, strlen(buffer), 0);
+
+    // recebendo a resposta
     tamanho = recv(meusocket, buffer, MAXIMOMSG, 0);
 
     // terminando a mensagem
