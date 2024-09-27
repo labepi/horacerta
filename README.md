@@ -8,7 +8,7 @@ Compilando e executando código do servidor:
 ```
 $ gcc servidor.c -o servidor
 $ ./servidor
-Servidor escutando conexões na porta: 2343
+Servidor escutando conexões na porta: 2102
 ```
 
 Compilando e executando código do cliente:
@@ -25,7 +25,7 @@ Executando o servidor:
 
 ```
 $ python3 servidor.py
-Servidor escutando conexões na porta: 2343
+Servidor escutando conexões na porta: 2102
 ```
 
 Executando o cliente:
